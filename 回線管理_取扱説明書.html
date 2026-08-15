@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>回線管理（KaisenKanri）取扱説明書</title>
+<style>
+  :root{
+    --bg:#eef4fd;
+    --card:#ffffff;
+    --card2:#eef4fd;
+    --border:#d3e2fa;
+    --text:#10203d;
+    --sub:#66748f;
+    --blue:#2f6fed;
+    --blue-dark:#1d4ed8;
+    --green:#16a34a;
+    --red:#dc2626;
+    --yellow:#d97706;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:720px;margin:0 auto;padding:20px 16px 60px;}
+
+  header.hero{background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+    color:#fff;border-radius:20px;padding:28px 22px;margin-bottom:20px;
+    box-shadow:0 8px 24px rgba(47,111,237,.25);}
+  header.hero .eyebrow{font-size:13px;font-weight:700;opacity:.85;letter-spacing:.04em;margin-bottom:6px;}
+  header.hero h1{font-size:24px;margin:0 0 8px;font-weight:800;line-height:1.4;}
+  header.hero p{font-size:14px;margin:0;opacity:.92;line-height:1.7;}
+
+  nav.toc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 18px;margin-bottom:22px;}
+  nav.toc .toctitle{font-weight:800;font-size:14.5px;margin-bottom:10px;color:var(--text);}
+  nav.toc ol{margin:0;padding-left:20px;}
+  nav.toc li{margin-bottom:6px;font-size:14px;}
+  nav.toc a{color:var(--blue-dark);text-decoration:none;font-weight:600;}
+  nav.toc a:hover{text-decoration:underline;}
+
+  section{background:var(--card);border:1px solid var(--border);border-radius:18px;
+    padding:20px 20px 22px;margin-bottom:16px;scroll-margin-top:14px;}
+  section h2{font-size:18px;margin:0 0 12px;display:flex;align-items:center;gap:8px;font-weight:800;}
+  section h2 .num{display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;
+    font-size:13px;font-weight:800;flex:none;}
+  section p{font-size:14.5px;line-height:1.85;margin:0 0 12px;color:var(--text);}
+  section h3{font-size:15px;margin:18px 0 8px;font-weight:800;color:var(--blue-dark);}
+
+  .card2{background:var(--card2);border:1px solid var(--border);border-radius:12px;
+    padding:12px 14px;margin:10px 0;font-size:13.5px;line-height:1.8;}
+  .card2.tip{border-left:4px solid var(--yellow);}
+  .card2.point{border-left:4px solid var(--blue);}
+
+  table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13.5px;}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
+  th{color:var(--sub);font-weight:700;font-size:12.5px;width:34%;}
+  td{color:var(--text);}
+
+  .steps{list-style:none;margin:0 0 12px;padding:0;counter-reset:step;}
+  .steps li{counter-increment:step;position:relative;padding:8px 0 8px 34px;font-size:14.5px;line-height:1.7;
+    border-bottom:1px dashed var(--border);}
+  .steps li:last-child{border-bottom:none;}
+  .steps li::before{content:counter(step);position:absolute;left:0;top:8px;
+    width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;
+    font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+
+  .badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;
+    font-size:12.5px;font-weight:700;border:1.5px solid;}
+  .badge.blue{color:var(--blue-dark);border-color:var(--blue);}
+  .badge.yellow{color:var(--yellow);border-color:var(--yellow);}
+  .badge.gray{color:var(--sub);border-color:var(--sub);}
+  .badge.green{color:var(--green);border-color:var(--green);}
+  .badge.red{color:var(--red);border-color:var(--red);}
+
+  .formula{background:#0f1f3a;color:#eaf1ff;border-radius:12px;padding:16px;
+    font-size:14.5px;text-align:center;font-weight:700;margin:10px 0 14px;line-height:1.9;}
+  .formula .plus{color:#7fd08a;}
+  .formula .minus{color:#ff9d9d;}
+
+  .faq dt{font-weight:800;font-size:14px;margin-top:12px;color:var(--text);}
+  .faq dt::before{content:"❓ ";}
+  .faq dd{margin:4px 0 0;font-size:13.5px;color:var(--sub);line-height:1.75;}
+
+  .backtotop{display:inline-block;margin-top:8px;font-size:12.5px;color:var(--blue-dark);text-decoration:none;font-weight:600;}
+
+  footer{text-align:center;color:var(--sub);font-size:12px;margin-top:24px;padding-top:18px;border-top:1px solid var(--border);}
+  footer b{color:var(--text);}
+
+  @media (max-width:420px){
+    header.hero h1{font-size:21px;}
+    section{padding:16px 14px 18px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">📱 KaisenKanri 取扱説明書</div>
+    <h1>超初心者でもわかる<br>回線管理アプリの使い方</h1>
+    <p>MNPのキャッシュバック・月額固定費・オプション解除の期限を、この1本でまとめて管理できます。この説明書の順番どおりに読めば迷いません👍</p>
+  </header>
+
+  <nav class="toc">
+    <div class="toctitle">📖 もくじ</div>
+    <ol>
+      <li><a href="#s1">このアプリって何？</a></li>
+      <li><a href="#s2">画面の見方（トップ画面）</a></li>
+      <li><a href="#s3">新しい回線を登録する</a></li>
+      <li><a href="#s4">「手残り」って何？（最重要）</a></li>
+      <li><a href="#s5">取引（CB・支出）を追加する</a></li>
+      <li><a href="#s6">🔔 オプション解除の通知設定</a></li>
+      <li><a href="#s7">🚦 ステータスの使い分け</a></li>
+      <li><a href="#s8">その他の画面・設定</a></li>
+      <li><a href="#s9">困ったときのチェックリスト</a></li>
+    </ol>
+  </nav>
+
+  <section id="s1">
+    <h2><span class="num">1</span>このアプリって何？</h2>
+    <p>MNP（携帯乗り換え）で発生する 💴キャッシュバック・💸手数料や解約金・💳毎月の固定費・📅オプション解除の期限 を<b>回線ごとにまとめて管理</b>して、「結局この回線でいくら儲かった／損したか」を一目でわかるようにするアプリです✨</p>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">2</span>画面の見方（トップ画面）🏠</h2>
+    <table>
+      <tr><th>🔔</th><td>解除管理・重要日程（オプション解除忘れ防止）</td></tr>
+      <tr><th>⚙️</th><td>設定（キャリア追加・データ管理など）</td></tr>
+      <tr><th>🔍</th><td>回線を検索</td></tr>
+      <tr><th>＋（右下）</th><td>新しい回線を追加</td></tr>
+    </table>
+    <p>画面下には回線が<b>カード形式</b>で並びます。1枚のカードが「1つの回線（1枚のSIM）」です📇</p>
+  </section>
+
+  <section id="s3">
+    <h2><span class="num">3</span>新しい回線を登録する📝</h2>
+    <ol class="steps">
+      <li>右下の <b>＋ボタン</b> をタップ</li>
+      <li>わかる範囲で入力欄を埋める（下の表を参照）</li>
+      <li><b>「保存」ボタン</b> をタップして完了✅</li>
+    </ol>
+    <table>
+      <tr><th>🚦 ステータス</th><td>運用中／解約予定／解約済</td></tr>
+      <tr><th>📡 キャリア</th><td>LINEMO、povoなど</td></tr>
+      <tr><th>☎️ 電話番号</th><td>090-0000-0000</td></tr>
+      <tr><th>💴 CB金額</th><td>もらえるキャッシュバック額</td></tr>
+      <tr><th>💳 月額固定費</th><td>毎月かかる実質料金（4️⃣で詳しく）</td></tr>
+      <tr><th>📅 契約日</th><td>自動計算のベースになる日付</td></tr>
+      <tr><th>👤 契約者・使用者</th><td>名義と実際に使う人</td></tr>
+      <tr><th>📱 端末名</th><td>使っている機種（任意）</td></tr>
+      <tr><th>📝 メモ</th><td>自由記入欄</td></tr>
+    </table>
+    <div class="card2 tip">💡 キャリアや契約者が一覧にない時は、選択欄いちばん下の「＋ 新規追加」からその場で追加できます。キャリアは色🎨も選べます。</div>
+    <a class="backtotop" href="#top">▲ もくじに戻る</a>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">4</span>「手残り」って何？💰<span class="badge blue">最重要</span></h2>
+    <p>このアプリでいちばん大事な数字が「<b>手残り</b>」です。</p>
+    <div class="formula">
+      手残り　＝　<span class="plus">💴CB合計</span>　－　<span class="minus">💸支出合計</span>　－　<span class="minus">💳月額固定費の累計</span>
+    </div>
+    <p>回線カードや編集画面に、この計算結果が自動で出ます。月額固定費は契約日から今日（解約済なら解約日）までの月数ぶん、自動で引き算されるので、<b>放っておいても今いくら残っているか</b>がすぐわかります👀</p>
+
+    <h3>💳 月額固定費が月ごとに違う場合</h3>
+    <p>「初月無料→2ヶ月目から割引→4ヶ月目以降は定価」のようなキャリアの割引パターンにも対応しています。</p>
+    <ol class="steps">
+      <li>月額固定費の項目で「<b>月ごとに変わる</b>」を選ぶ</li>
+      <li>初月／2ヶ月目／3ヶ月目／4ヶ月目以降　の4つの金額を入力</li>
+      <li>あとは自動で毎月の単価を当てはめて合計してくれます🧮</li>
+    </ol>
+    <div class="card2 point">📌 毎月同額のキャリアなら「毎月同額」のままでOK。今まで通り1つの金額を入れるだけです。</div>
+    <a class="backtotop" href="#top">▲ もくじに戻る</a>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">5</span>取引（CB・支出）を追加する💸</h2>
+    <p>登録済みの回線をタップして編集画面を開くと、下の方に「取引履歴」があります。</p>
+    <ol class="steps">
+      <li>「＋ 取引を追加」をタップ</li>
+      <li>収入（💴もらったお金）か支出（💸払ったお金）かを選ぶ</li>
+      <li>金額・日付・メモ（任意）を入れて保存</li>
+    </ol>
+    <p>手数料や解約金など、CB以外のお金の動きはここに記録していきます📒</p>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">6</span>🔔 オプション解除の通知設定</h2>
+    <p>MNPで一番やりがちな失敗が「<b>オプションの解除忘れ</b>」です😱 これを防ぐのがトップ画面の🔔ベルアイコンです。</p>
+    <ol class="steps">
+      <li>トップ画面の 🔔 をタップ</li>
+      <li>右下の＋ボタンで新しい予定を追加</li>
+      <li>対象回線・種類（オプション解除／維持期間終了／その他）・期日・通知タイミングを入力して保存</li>
+    </ol>
+    <table>
+      <tr><th><span class="badge red">🔴 赤</span></th><td>期限切れ（今すぐ対応）</td></tr>
+      <tr><th><span class="badge yellow">🟡 黄</span></th><td>期限まで7日以内</td></tr>
+      <tr><th>🔔バッジ</th><td>期限が近い予定の件数を表示</td></tr>
+    </table>
+    <h3>⏰ スマホに通知を届けたい場合</h3>
+    <p>設定画面（⚙️）の「解除リマインダーをカレンダーに追加」から、通知つきファイル（ics）をダウンロードできます。これをスマホの標準カレンダーアプリに取り込むと、設定した日数前に<b>端末の通知</b>が届きます📲（LINE通知は今後追加予定）</p>
+    <a class="backtotop" href="#top">▲ もくじに戻る</a>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">7</span>🚦 ステータスの使い分け</h2>
+    <table>
+      <tr><th><span class="badge blue">🔵 運用中</span></th><td>今も普通に使っている回線</td></tr>
+      <tr><th><span class="badge yellow">🟡 解約予定</span></th><td>もうすぐ解約するつもりの回線</td></tr>
+      <tr><th><span class="badge gray">⚪ 解約済</span></th><td>解約が完了した回線</td></tr>
+    </table>
+    <p>「解約済」にすると解約日の入力欄が出ます。解約日を入れると、その日以降は月額固定費の計算が止まるので、<b>手残り金額が正確なまま固定</b>されます🔒 一覧画面ではステータスごとの絞り込みも可能です。</p>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">8</span>その他の画面・設定</h2>
+    <table>
+      <tr><th>📅 予約番号タブ</th><td>MNP予約番号と期限を管理</td></tr>
+      <tr><th>💰 CBタブ</th><td>もらったキャッシュバックの一覧</td></tr>
+      <tr><th>📊 利益計算タブ</th><td>月ごとの利益推移、合計の手残りも表示</td></tr>
+      <tr><th>📈 統計タブ</th><td>キャリア別回線数・月別契約数のグラフ</td></tr>
+    </table>
+    <h3>⚙️ 設定メニュー</h3>
+    <table>
+      <tr><th>📡 キャリア管理</th><td>キャリアの追加・編集・並び替え</td></tr>
+      <tr><th>👥 契約者名義管理</th><td>契約者の名前を管理</td></tr>
+      <tr><th>👤 使用者管理</th><td>使用者の名前を管理</td></tr>
+      <tr><th>⬆️ データエクスポート</th><td>今のデータをJSONでバックアップ</td></tr>
+      <tr><th>📅 重要日程インポート</th><td>全回線の181日・211日を一括カレンダー登録</td></tr>
+      <tr><th>🔔 解除管理・重要日程</th><td>6️⃣の画面をここからも開けます</td></tr>
+      <tr><th>⏰ 解除リマインダー</th><td>通知つきカレンダーファイルを出力</td></tr>
+    </table>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">9</span>困ったときのチェックリスト✅</h2>
+    <dl class="faq">
+      <dt>キャリアが選択肢に出てこない</dt>
+      <dd>キャリア選択欄の「＋ 新規追加」からその場で作成できます。</dd>
+      <dt>手残りがマイナスになっている</dt>
+      <dd>月額固定費の入れすぎ・CB未入力の可能性があります。編集画面の内訳ボックスを確認してください。</dd>
+      <dt>通知が来ない</dt>
+      <dd>カレンダーアプリへのics取り込みが必要です（6️⃣を参照）。</dd>
+      <dt>データが消えないか心配</dt>
+      <dd>設定の「データエクスポート」で定期的にバックアップしましょう💾</dd>
+    </dl>
+    <a class="backtotop" href="#top">▲ もくじに戻る</a>
+  </section>
+
+  <footer>
+    📌 <b>やっぴ〜Presents</b><br>
+    X（@8p_thankyou）　LINE公式（https://lin.ee/AsTWK4D）
+  </footer>
+
+</div>
+</body>
+</html>
